@@ -15,8 +15,46 @@
 <h1>Tasks</h1>
 <p></p>
 <h2>Tasks1</h2>
-<p>123456123</p>
-<h2>Tasks2</h2>
+<p></p>
+<h3>list</h3>
+<p>C++ 程式碼執行</p>
+<h2>C++ 程式碼範例</h2>
+<p><code id="cppCode"> #include <iostream> using namespace std; int main() { cout &lt;&lt; "Hello, World!" &lt;&lt; endl; return 0; } </iostream></code> <button onclick="copyCode()">複製程式碼</button></p>
+<h3>執行程式碼</h3>
+<p><button onclick="runCode()">執行 C++ 程式</button></p>
+<pre id="output"></pre>
+<script>
+        function copyCode() {
+            const code = document.getElementById('cppCode').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('程式碼已複製到剪貼簿！');
+            });
+        }
+
+        // 用來顯示 C++ 程式執行結果的函數
+        function runCode() {
+            const output = document.getElementById('output');
+            output.innerHTML = '執行中...';
+
+            // 假設我們有一個伺服器來執行 C++ 程式碼
+            fetch('/run_cpp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ code: document.getElementById('cppCode').innerText })
+            })
+            .then(response => response.text())
+            .then(result => {
+                output.innerHTML = result;
+            })
+            .catch(error => {
+                output.innerHTML = '錯誤: 無法執行程式碼。';
+            });
+        }
+    
+</script>
+<p></p><h2>Tasks2</h2>
 <p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/8uF7PbPNivI" width="560"></iframe></p>
 <h2>Tasks3</h2>
 <p></p>
