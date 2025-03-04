@@ -131,7 +131,7 @@ img.add_border {
                             <li><a href="./../blog/index.html">blog</a></li>
                         </ul>
                       </li>
-                     <li><a href='About.html'>About</a><li class='has-children'><a href='Tasks.html'>Tasks</a><ul class='dropdown'><li class='has-children'><a href='Tasks1.html'>Tasks1</a><ul class='dropdown'><li><a href='list.html'>list</a></li></ul><li class='has-children'><a href='C++ 程式碼範例.html'>C++ 程式碼範例</a><ul class='dropdown'><li><a href='執行程式碼.html'>執行程式碼</a></li></ul><li><a href='Tasks2.html'>Tasks2</a><li><a href='Tasks3.html'>Tasks3</a><li><a href='Tasks4.html'>Tasks4</a><li><a href='Tasks5.html'>Tasks5</a><li><a href='Tasks6.html'>Tasks6</a></li></ul><li class='has-children'><a href='Homework.html'>Homework</a><ul class='dropdown'><li><a href='HW1.html'>HW1</a><li><a href='HW2.html'>HW2</a><li><a href='HW3.html'>HW3</a></li></ul><li><a href='Midterm.html'>Midterm</a><li class='has-children'><a href='Exam.html'>Exam</a><ul class='dropdown'><li><a href='Exam1.html'>Exam1</a><li><a href='Exam2.html'>Exam2</a><li><a href='Exam3.html'>Exam3</a></li></ul><li><a href='Final.html'>Final</a><li><a href='Brython.html'>Brython</a></li>
+                     <li><a href='About.html'>About</a><li class='has-children'><a href='Tasks.html'>Tasks</a><ul class='dropdown'><li class='has-children'><a href='Tasks1.html'>Tasks1</a><ul class='dropdown'><li><a href='list.html'>list</a></li></ul><li><a href='Tasks2.html'>Tasks2</a><li><a href='Tasks3.html'>Tasks3</a><li><a href='Tasks4.html'>Tasks4</a><li><a href='Tasks5.html'>Tasks5</a><li><a href='Tasks6.html'>Tasks6</a></li></ul><li class='has-children'><a href='Homework.html'>Homework</a><ul class='dropdown'><li><a href='HW1.html'>HW1</a><li><a href='HW2.html'>HW2</a><li><a href='HW3.html'>HW3</a></li></ul><li><a href='Midterm.html'>Midterm</a><li class='has-children'><a href='Exam.html'>Exam</a><ul class='dropdown'><li><a href='Exam1.html'>Exam1</a><li><a href='Exam2.html'>Exam2</a><li><a href='Exam3.html'>Exam3</a></li></ul><li><a href='Final.html'>Final</a><li><a href='Brython.html'>Brython</a></li>
                       </ul>
                 </nav>
               </div>
@@ -142,9 +142,85 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">Tasks1 << <a href='Tasks1.html'>Previous</a> <a href='C++ 程式碼範例.html'>Next</a> >> C++ 程式碼範例<br /><h1>list</h1>
-<p>C++ 程式碼執行</p>
-<br />Tasks1 << <a href='Tasks1.html'>Previous</a> <a href='C++ 程式碼範例.html'>Next</a> >> C++ 程式碼範例</div>
+    <div id="tipue_search_content">Tasks1 << <a href='Tasks1.html'>Previous</a> <a href='Tasks2.html'>Next</a> >> Tasks2<br /><h1>list</h1>
+<p>123546</p>
+<p></p>
+<p></p>
+<p></p>
+<p>程式碼執行器</p>
+<p>程式碼執行器</p>
+<p><label for="language">選擇語言:</label></p>
+<select id="language">
+<option value="cpp">C++</option>
+<option value="python">Python</option>
+</select>
+<p>請貼上你的程式碼:</p>
+<p><textarea id="codeInput"></textarea> <button onclick="runCode()">執行程式碼</button></p>
+<p>執行結果:</p>
+<pre id="output"></pre>
+<script>
+        function runCode() {
+            const language = document.getElementById('language').value;
+            const code = document.getElementById('codeInput').value;
+            const output = document.getElementById('output');
+
+            output.innerHTML = '執行中...';
+
+            // 發送程式碼到伺服器
+            fetch('/run_code', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ language, code })
+            })
+            .then(response => response.text())
+            .then(result => {
+                output.innerHTML = result;
+            })
+            .catch(error => {
+                output.innerHTML = '錯誤: 無法執行程式碼。';
+            });
+        }
+    
+</script>
+<p></p>
+<p>執行程式碼</p>
+<p><button onclick="runCode()">執行 C++ 程式</button></p>
+<pre id="output"></pre>
+<script>
+        function copyCode() {
+            const code = document.getElementById('cppCode').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('程式碼已複製到剪貼簿！');
+            });
+        }
+
+        // 用來顯示 C++ 程式執行結果的函數
+        function runCode() {
+            const output = document.getElementById('output');
+            output.innerHTML = '執行中...';
+
+            // 假設我們有一個伺服器來執行 C++ 程式碼
+            fetch('/run_cpp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ code: document.getElementById('cppCode').innerText })
+            })
+            .then(response => response.text())
+            .then(result => {
+                output.innerHTML = result;
+            })
+            .catch(error => {
+                output.innerHTML = '錯誤: 無法執行程式碼。';
+            });
+        }
+    
+</script>
+<p></p>
+<br />Tasks1 << <a href='Tasks1.html'>Previous</a> <a href='Tasks2.html'>Next</a> >> Tasks2</div>
         
     <!-- footer -->
       <div class="container">
