@@ -34,7 +34,7 @@
 <p>執行結果:</p>
 <pre id="output"></pre>
 <script>
-    function runCode() {
+function runCode() {
         const language = document.getElementById('language').value;
         const code = document.getElementById('codeInput').value;
         const output = document.getElementById('output');
@@ -52,6 +52,41 @@
         .then(response => response.text())
         .then(result => {
             output.innerHTML = result;
+        })
+        .catch(error => {
+            output.innerHTML = '錯誤: 無法執行程式碼。';
+        });
+    }
+</script>
+<p></p>
+<p>Python 程式碼執行器</p>
+<p>程式碼執行器</p>
+<p>請貼上你的 Python 程式碼:</p>
+<p><textarea cols="50" id="codeInput" rows="10"></textarea> <button onclick="runCode()">執行程式碼</button></p>
+<p>執行結果:</p>
+<pre id="output"></pre>
+<script>
+    function runCode() {
+        const code = document.getElementById('codeInput').value;
+        const output = document.getElementById('output');
+
+        output.innerHTML = '執行中...';
+
+        // 發送程式碼到伺服器
+        fetch('http://localhost:8080/run_code', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ code })  // 發送程式碼
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.output) {
+                output.innerHTML = result.output;  // 顯示執行結果
+            } else if (result.error) {
+                output.innerHTML = '錯誤: ' + result.error;
+            }
         })
         .catch(error => {
             output.innerHTML = '錯誤: 無法執行程式碼。';
