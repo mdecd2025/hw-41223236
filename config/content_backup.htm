@@ -19,46 +19,12 @@
 <h3>list</h3>
 <p>123546</p>
 <p></p>
-<p>程式碼執行器</p>
-<p></p>
-<p>import json import subprocess from http.server import BaseHTTPRequestHandler, HTTPServer # HTML 頁面內容 html_page = """Python 程式碼執行器</p>
-<p>程式碼執行器</p>
-<p>請貼上你的 Python 程式碼:</p>
-<p><textarea cols="50" id="codeInput" rows="10"></textarea><br/><br/> <button onclick="runCode()">執行程式碼</button></p>
-<p>執行結果:</p>
-<pre id="output"></pre>
-<p>
-<script>
-    function runCode() {
-        const code = document.getElementById('codeInput').value;
-        const output = document.getElementById('output');
-
-        output.innerHTML = '執行中...';
-
-        // 發送程式碼到伺服器
-        fetch('http://localhost:8080/run_code', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ code })  // 發送程式碼
-        })
-        .then(response => response.json())
-        .then(result => {
-            if (result.output) {
-                output.innerHTML = result.output;  // 顯示執行結果
-            } else if (result.error) {
-                output.innerHTML = '錯誤: ' + result.error;
-            }
-        })
-        .catch(error => {
-            output.innerHTML = '錯誤: 無法執行程式碼。';
-        });
-    }
-</script>
-""" class SimpleHTTPRequestHandler(BaseHTTPRequestHandler): # 用來處理根目錄 (顯示 HTML 頁面) def do_GET(self): if self.path == '/': self.send_response(200) self.send_header('Content-type', 'text/html') self.end_headers() self.wfile.write(html_page.encode('utf-8')) else: self.send_response(404) self.end_headers() # 用來處理執行程式碼的請求 def do_POST(self): if self.path == '/run_code': content_length = int(self.headers['Content-Length']) post_data = self.rfile.read(content_length) try: # 解析 JSON 請求體 data = json.loads(post_data.decode('utf-8')) code = data.get('code', '') # 直接使用 subprocess 執行 Python 程式碼 result = subprocess.run(['python3', '-c', code], capture_output=True, text=True) # 返回執行結果 if result.returncode == 0: self.send_response(200) self.send_header('Content-type', 'application/json') self.end_headers() self.wfile.write(json.dumps({'output': result.stdout}).encode('utf-8')) else: self.send_response(500) self.send_header('Content-type', 'application/json') self.end_headers() self.wfile.write(json.dumps({'error': result.stderr}).encode('utf-8')) except Exception as e: self.send_response(500) self.send_header('Content-type', 'application/json') self.end_headers() self.wfile.write(json.dumps({'error': f"伺服器錯誤：{str(e)}"}).encode('utf-8')) else: self.send_response(404) self.end_headers() # 設置伺服器 def run(server_class=HTTPServer, handler_class=SimpleHTTPRequestHandler, port=8080): server_address = ('', port) httpd = server_class(server_address, handler_class) print(f'Starting server on port {port}...') httpd.serve_forever() if __name__ == '__main__': run()</p>
-<p></p>
-<p></p>
+<p>學員資料</p>
+<p>學員資料查詢</p>
+<!-- 這裡將顯示超連結 -->
+<div id="link-container"></div>
+<!-- 引入你的 JavaScript 文件 -->
+<script src="/get_page/list/path_to_your_script.js" type="text/javascript"></script>
 <p></p><h2>Tasks2</h2>
 <p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/8uF7PbPNivI" width="560"></iframe></p>
 <h2>Tasks3</h2>
