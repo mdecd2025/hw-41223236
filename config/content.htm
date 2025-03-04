@@ -17,10 +17,49 @@
 <h2>Tasks1</h2>
 <p></p>
 <h3>list</h3>
-<p>C++ 程式碼執行</p>
-<h2>C++ 程式碼範例</h2>
-<p><code id="cppCode"> #include <iostream> using namespace std; int main() { cout &lt;&lt; "Hello, World!" &lt;&lt; endl; return 0; } </iostream></code> <button onclick="copyCode()">複製程式碼</button></p>
-<h3>執行程式碼</h3>
+<p>123546</p>
+<p></p>
+<p></p>
+<p></p>
+<p>程式碼執行器</p>
+<p>程式碼執行器</p>
+<p><label for="language">選擇語言:</label></p>
+<select id="language">
+<option value="cpp">C++</option>
+<option value="python">Python</option>
+</select>
+<p>請貼上你的程式碼:</p>
+<p><textarea id="codeInput"></textarea> <button onclick="runCode()">執行程式碼</button></p>
+<p>執行結果:</p>
+<pre id="output"></pre>
+<script>
+        function runCode() {
+            const language = document.getElementById('language').value;
+            const code = document.getElementById('codeInput').value;
+            const output = document.getElementById('output');
+
+            output.innerHTML = '執行中...';
+
+            // 發送程式碼到伺服器
+            fetch('/run_code', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ language, code })
+            })
+            .then(response => response.text())
+            .then(result => {
+                output.innerHTML = result;
+            })
+            .catch(error => {
+                output.innerHTML = '錯誤: 無法執行程式碼。';
+            });
+        }
+    
+</script>
+<p></p>
+<p>執行程式碼</p>
 <p><button onclick="runCode()">執行 C++ 程式</button></p>
 <pre id="output"></pre>
 <script>
@@ -54,7 +93,8 @@
         }
     
 </script>
-<p></p><h2>Tasks2</h2>
+<p></p>
+<h2>Tasks2</h2>
 <p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/8uF7PbPNivI" width="560"></iframe></p>
 <h2>Tasks3</h2>
 <p></p>
