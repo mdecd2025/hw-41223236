@@ -18,13 +18,16 @@
 <p></p>
 <h3>list</h3>
 <p>123546</p>
-<p></p>
-<p>學員資料</p>
-<p>學員資料查詢</p>
-<!-- 這裡將顯示超連結 -->
-<div id="link-container"></div>
-<!-- 引入你的 JavaScript 文件 -->
-<script src="/get_page/list/path_to_your_script.js" type="text/javascript"></script>
+<p>from browser import html, document, ajax</p>
+<p># 學員資料的 URL<br/>url = "https://mde.tw/list/2b.txt"</p>
+<p># 只顯示學號 41223236<br/>def on_complete(req):<br/> if req.status == 200:<br/> data = req.text.splitlines() # 取得資料，並以行分割<br/> all_stud = data[1:] # 去除標題行</p>
+<p># 建立 UL 列表來顯示學員資料<br/> stud_list = html.UL()</p>
+<p>for stud in all_stud:<br/> fields = stud.split() # 假設學號和帳號以空白分隔<br/> if len(fields) &gt;= 2:<br/> stud_id, account = fields[:2]</p>
+<p># 只顯示學號為 41223236 的學員<br/> if stud_id == "41223236":<br/> link = f"https://mdecd2025.github.io/hw-{stud_id}"</p>
+<p># 創建學員項目並加入到列表中<br/> stud_item = html.LI([<br/> html.SPAN(f"學號: {stud_id} - "), # 顯示學號<br/> html.SPAN(f"帳號: {account} - "), # 顯示帳號<br/> html.A("查看資料", href=link, target="_blank") # 顯示超連結<br/> ])<br/> stud_list &lt;= stud_item</p>
+<p># 在頁面上顯示<br/> document["brython_div1"] &lt;= html.P(f"學員資料：")<br/> document["brython_div1"] &lt;= stud_list</p>
+<p>else:<br/> document["brython_div1"] &lt;= html.P("無法取得資料")</p>
+<p># 發送 AJAX 請求<br/>ajax.get(url, oncomplete=on_complete)</p>
 <p></p><h2>Tasks2</h2>
 <p><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/8uF7PbPNivI" width="560"></iframe></p>
 <h2>Tasks3</h2>
